@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.page;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -72,5 +73,46 @@ public class RegistrationPage {
     public RegistrationPage checkLastNameField(String savedValueBefore) {
         assertThat(savedValueBefore, is(equalTo($(By.name("lastname")).getValue())));
         return this;
+    }
+
+    public RegistrationPage enterAddress(String address) {
+        $(By.name("address1")).sendKeys(address);
+        return this;
+    }
+
+    public RegistrationPage enterCity(String city) {
+        $(By.name("city")).sendKeys(city);
+        return this;
+    }
+
+    public RegistrationPage selectState(String state) {
+        $(By.name("id_state")).selectOptionContainingText(state);
+        return this;
+    }
+
+    public RegistrationPage enterPostCode(String postCode) {
+        $(By.name("postcode")).sendKeys(postCode);
+        return this;
+    }
+
+    public RegistrationPage selectCountry(String country) {
+        $(By.name("id_country")).selectOptionContainingText(country);
+        return this;
+    }
+
+    public RegistrationPage enterMobileNumber(String mobileNumber) {
+        $(By.name("phone_mobile")).sendKeys(mobileNumber);
+        return this;
+    }
+
+    public RegistrationPage addressAlias(String alias) {
+        $(By.name("alias")).clear();
+        $(By.name("alias")).sendKeys(alias);
+        return this;
+    }
+
+    public UserPanel submitRegistration() {
+        $(By.name("submitAccount")).click();
+        return page(UserPanel.class);
     }
 }

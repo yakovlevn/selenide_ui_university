@@ -41,6 +41,15 @@ public class RegistrationTests {
                         randomMonthPicker(MONTH_OF_BIRTH),
                         randomInt(YEAR_OF_BIRTH, 1990, 2018))
                 .checkFirstNameField(getListOfSavedValues().get(0))
-                .checkLastNameField(getListOfSavedValues().get(1));
+                .checkLastNameField(getListOfSavedValues().get(1))
+                .enterAddress(VALID_HOME_ADDRESS)
+                .enterCity(VALID_CITY)
+                .selectState(VALID_STATE)
+                .enterPostCode(VALID_POST_CODE)
+                .selectCountry(VALID_COUNTRY)
+                .enterMobileNumber(VALID_MOBILE_NUMBER)
+                .addressAlias(ADDRESS_ALLIAS)
+                .submitRegistration().
+                checkIfUserIsLoggedIn();
     }
 }

@@ -13,6 +13,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static lv.bvef.ui.utils.RandomGenerator.*;
 import static testHelpers.GlobalConstants.WEB_URL;
 import static testHelpers.StringValues.*;
+import static testHelpers.ValuesKeeper.getListOfSavedValues;
 
 public class RegistrationTests {
 
@@ -36,10 +37,10 @@ public class RegistrationTests {
                 .checkEmailField(authenticationPage.getEmail())
                 .enterPassword(randomString(PASSWORD, 8))
                 .selectDateOfBirth(
-                        randomInt(DAY_OF_BIRTH, 1, 20),
+                        randomInt(DAY_OF_BIRTH, 1, 28),
                         randomMonthPicker(MONTH_OF_BIRTH),
-                        randomInt(YEAR_OF_BIRTH, 1990, 1994))
-                .enterFirstName(randomString(NAME, 10))
-                .enterLastname(randomString(SURNAME, 10));
+                        randomInt(YEAR_OF_BIRTH, 1990, 2018))
+                .checkFirstNameField(getListOfSavedValues().get(0))
+                .checkLastNameField(getListOfSavedValues().get(1));
     }
 }

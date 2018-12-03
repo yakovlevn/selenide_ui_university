@@ -1,9 +1,9 @@
 package lv.bvef.ui.pageobjects;
 
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
+import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Selenide.$;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -12,45 +12,14 @@ import static testHelpers.StringValues.MRS;
 
 public class RegistrationPage {
 
-
-    @FindBy(how = How.NAME, using = "id_gender")
-    private SelenideElement selectGender;
-
-    @FindBy(how = How.NAME, using = "customer_firstname")
-    private SelenideElement customerFirstName;
-
-    @FindBy(how = How.NAME, using = "customer_lastname")
-    private SelenideElement customerLastName;
-
-    @FindBy(how = How.NAME, using = "email")
-    private SelenideElement emailField;
-
-    @FindBy(how = How.NAME, using = "passwd")
-    private SelenideElement passwordField;
-
-    @FindBy(how = How.NAME, using = "days")
-    private SelenideElement calendarDay;
-
-    @FindBy(how = How.NAME, using = "months")
-    private SelenideElement calendarMonth;
-
-    @FindBy(how = How.NAME, using = "years")
-    private SelenideElement calendarYear;
-
-    @FindBy(how = How.NAME, using = "firstname")
-    private SelenideElement firstNameField;
-
-    @FindBy(how = How.NAME, using = "lastName")
-    private SelenideElement lastNameField;
-
-
     public RegistrationPage selectTitle(String title) throws IllegalAccessException {
+        SelenideElement el = $(By.name("id_gender"));
         switch (title) {
             case MR:
-                selectGender.selectRadio("1");
+                el.selectRadio("1");
                 break;
             case MRS:
-                selectGender.selectRadio("2");
+                el.selectRadio("2");
                 break;
             default:
                 throw new IllegalAccessException("Incorrect value " + title);
@@ -59,39 +28,49 @@ public class RegistrationPage {
     }
 
     public RegistrationPage enterFirstNamePI(String firstName) {
-        customerFirstName.sendKeys(firstName);
+        $(By.name("customer_firstname")).sendKeys(firstName);
         return this;
     }
 
     public RegistrationPage enterLastNamePI(String lastName) {
-        customerLastName.sendKeys(lastName);
+        $(By.name("customer_lastname")).sendKeys(lastName);
         return this;
     }
 
     public RegistrationPage checkEmailField(String email) {
-        assertThat(email, is(equalTo(emailField.getValue())));
+        assertThat(email, is(equalTo($(By.name("email")).getValue())));
         return this;
     }
 
     public RegistrationPage enterPassword(String password) {
-        passwordField.sendKeys(password);
+        $(By.name("passwd")).sendKeys(password);
         return this;
     }
 
     public RegistrationPage selectDateOfBirth(String day, String month, String year) {
-        calendarDay.selectOptionContainingText(day);
-        calendarMonth.selectOptionContainingText(month);
-        calendarYear.selectOptionContainingText(year);
+        $(By.name("months")).selectOptionContainingText(month);
+        $(By.name("years")).selectOptionContainingText(year);
+        $(By.name("days")).selectOptionContainingText(day);
         return this;
     }
 
     public RegistrationPage enterFirstName(String firstName) {
-        firstNameField.sendKeys(firstName);
+        $(By.name("firstname")).sendKeys(firstName);
         return this;
     }
 
     public RegistrationPage enterLastname(String lastName) {
-        firstNameField.sendKeys(lastName);
+        $(By.name("lastname")).sendKeys(lastName);
+        return this;
+    }
+
+    public RegistrationPage checkFirstNameField(String savedValueBefore) {
+        assertThat(savedValueBefore, is(equalTo($(By.name("firstname")).getValue())));
+        return this;
+    }
+
+    public RegistrationPage checkLastNameField(String savedValueBefore) {
+        assertThat(savedValueBefore, is(equalTo($(By.name("lastname")).getValue())));
         return this;
     }
 }

@@ -105,7 +105,7 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage addressAlias(String alias) {
+    public RegistrationPage enterAddressAlias(String alias) {
         $(By.name("alias")).clear();
         $(By.name("alias")).sendKeys(alias);
         return this;

@@ -3,27 +3,26 @@ package lv.bvef.ui;
 import lv.bvef.ui.pageobjects.AuthenticationPage;
 import lv.bvef.ui.pageobjects.MainPage;
 import lv.bvef.ui.pageobjects.RegistrationPage;
-import lv.bvef.ui.utils.YamlReader;
 import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.*;
 import org.junit.runner.Description;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.codeborne.selenide.Selenide.open;
 import static lv.bvef.ui.utils.RandomGenerator.*;
-import static testHelpers.GlobalConstants.WEB_URL;
+import static lv.bvef.ui.utils.YamlReader.*;
 import static testHelpers.StringValues.*;
 import static testHelpers.ValuesKeeper.getListOfSavedValues;
 
 public class RegistrationTests {
 
     static {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("");
+        loadYamlConfigurationFile();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(config.getDateFormatPattern());
         System.setProperty("current.date.time", dateFormat.format(new Date()));
     }
 
@@ -39,7 +38,7 @@ public class RegistrationTests {
 
     @Test
     public void accountRegistration() throws IllegalAccessException {
-        MainPage mainPage = open(WEB_URL, MainPage.class);
+        MainPage mainPage = open(config.getWebUrl(), MainPage.class);
         AuthenticationPage authenticationPage = mainPage.signIn();
         RegistrationPage registrationPage = authenticationPage.createAccountWithEmail(randomEmail(5));
         registrationPage.selectTitle(MRS)
@@ -62,10 +61,5 @@ public class RegistrationTests {
                 .enterAddressAlias(ADDRESS_ALLIAS)
                 .submitRegistration()
                 .checkIfUserIsLoggedIn();
-    }
-
-    @Test
-    public void testYaml() throws IOException {
-        YamlReader.readYamlFile("configuration.yaml");
     }
 }

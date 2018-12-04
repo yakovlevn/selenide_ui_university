@@ -1,0 +1,3 @@
+webUrl: http://automationpractice.com/index.php
+loggedInUrl: http://automationpractice.com/index.php?controller=my-account
+dateFormatPattern: dd-MM-yyyy-hh-mm-ss

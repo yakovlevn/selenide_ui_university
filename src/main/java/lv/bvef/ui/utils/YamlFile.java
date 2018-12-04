@@ -10,7 +10,7 @@ public final class YamlFile {
     private static YamlFile INSTANCE;
 
     private YamlFile() {
-
+        load();
     }
 
     public static YamlFile getInstance() {
@@ -20,10 +20,9 @@ public final class YamlFile {
         return INSTANCE;
     }
 
-    public ServiceConfig config = new ServiceConfig();
+    private ServiceConfig config;
 
-
-    public void load() {
+    private void load() {
         Constructor constructor = new Constructor(YamlConfig.class);
         Yaml yaml = new Yaml(constructor);
 
@@ -34,6 +33,10 @@ public final class YamlFile {
             e.printStackTrace();
         }
         config = yaml.loadAs(input, ServiceConfig.class);
+    }
+    
+    public ServiceConfig getConfig() {
+        return config;
     }
 }
 

@@ -57,7 +57,7 @@ public class RegistrationTests {
                 .selectCountry(VALID_COUNTRY)
                 .enterMobileNumber(VALID_MOBILE_NUMBER)
                 .enterAddressAlias(ADDRESS_ALLIAS)
-                .submitRegistration().
-                checkIfUserIsLoggedIn();
+                .submitRegistration()
+                .checkIfUserIsLoggedIn();
     }
 }

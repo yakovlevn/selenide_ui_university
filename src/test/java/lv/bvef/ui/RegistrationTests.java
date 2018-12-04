@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.junit.rules.*;
 import org.junit.runner.Description;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static com.codeborne.selenide.Selenide.open;
 import static lv.bvef.ui.utils.RandomGenerator.*;
 import static testHelpers.GlobalConstants.WEB_URL;
@@ -16,6 +19,11 @@ import static testHelpers.StringValues.*;
 import static testHelpers.ValuesKeeper.getListOfSavedValues;
 
 public class RegistrationTests {
+
+    static {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        System.setProperty("current.date.time", dateFormat.format(new Date()));
+    }
 
     private static Logger logger = Logger.getLogger(RegistrationTests.class);
 

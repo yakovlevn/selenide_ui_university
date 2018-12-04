@@ -13,7 +13,6 @@ public class RandomGenerator {
 
     private static Logger logger = Logger.getLogger(RandomGenerator.class);
 
-
     public static String randomString(String type, int length) {
         String r = RandomStringUtils.randomAlphabetic(length);
         logger.info(String.format("Random %s is: %s", type, r));

@@ -1,17 +1,19 @@
 package lv.bvef.ui.pageobjects;
 
-import static lv.bvef.ui.utils.YamlReader.*;
+import lv.bvef.ui.utils.YamlFile;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-
+import static org.hamcrest.Matchers.is;
 
 public class UserPanel {
 
+    private YamlFile yamlFile = YamlFile.getInstance();
+
     public UserPanel checkIfUserIsLoggedIn() {
-        assertThat(getWebDriver().getCurrentUrl(), is(equalTo(config.getLoggedInUrl())));
+        assertThat(getWebDriver().getCurrentUrl(), is(equalTo(yamlFile.config.getLoggedInUrl())));
         return this;
     }
 }

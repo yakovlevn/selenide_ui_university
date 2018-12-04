@@ -3,7 +3,9 @@ package lv.bvef.ui;
 import lv.bvef.ui.pageobjects.AuthenticationPage;
 import lv.bvef.ui.pageobjects.MainPage;
 import lv.bvef.ui.pageobjects.RegistrationPage;
+import lv.bvef.ui.utils.YamlFile;
 import org.apache.log4j.Logger;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.*;
@@ -14,15 +16,17 @@ import java.util.Date;
 
 import static com.codeborne.selenide.Selenide.open;
 import static lv.bvef.ui.utils.RandomGenerator.*;
-import static lv.bvef.ui.utils.YamlReader.*;
 import static testHelpers.StringValues.*;
 import static testHelpers.ValuesKeeper.getListOfSavedValues;
 
 public class RegistrationTests {
 
-    static {
-        loadYamlConfigurationFile();
-        SimpleDateFormat dateFormat = new SimpleDateFormat(config.getDateFormatPattern());
+    private static YamlFile yamlFile = YamlFile.getInstance();
+
+    @BeforeClass
+    public static void beforeClass() {
+        yamlFile.load();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(yamlFile.config.getDateFormatPattern());
         System.setProperty("current.date.time", dateFormat.format(new Date()));
     }
 
@@ -38,7 +42,7 @@ public class RegistrationTests {
 
     @Test
     public void accountRegistration() throws IllegalAccessException {
-        MainPage mainPage = open(config.getWebUrl(), MainPage.class);
+        MainPage mainPage = open(yamlFile.config.getWebUrl(), MainPage.class);
         AuthenticationPage authenticationPage = mainPage.signIn();
         RegistrationPage registrationPage = authenticationPage.createAccountWithEmail(randomEmail(5));
         registrationPage.selectTitle(MRS)
